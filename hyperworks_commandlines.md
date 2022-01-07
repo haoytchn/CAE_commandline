@@ -22,3 +22,49 @@ call "C:\Program Files\Altair\2019\hw\bin\win64\hw.exe" -b -clientconfig hwplot.
 
 3.y峰值处的x索引（×输出间隔）
 {indexofmax(c1.y)}
+
+4.使用note输出值到文件示例
+
+```hyperview
+# 获得measure编号为3下最大值
+{open "C:/Users/haoyuting/Desktop/test/curvefit.dat"}
+Max: {max(p1w1measure3.max)}
+{close}
+```
+
+![](https://mmbiz.qpic.cn/mmbiz_png/ogPM1EwKGEscMuXzLt4ABItlibPh3EbELp0ibDXaOtic60m86vEwkAgnljfX8XpGxbRwBy9cjP3uWxymfEic2Ks5pQ/640?wx_fmt=png)
+
+```hypergraph
+# 获得HIC值；p1w2c1 y轴最大值
+{open "C:/Users/haoyuting/Desktop/test/curvefit.dat"}
+{mynote = hic(p1w6c1.x*0.001,p1w6c1.y*1.0,15)}
+HIC: {mynote[0]}
+Max: {max(p1w2c1.y)}
+{close}
+```
+```hypergraph
+# 输出若干条曲线的唯一最大值
+{open "C:/Users/haoyuting/Desktop/test/curvefit.dat"}
+{num= (p1w1c5.y,p1w1c6.y)}
+{max = {max(num)}}
+befor: {num}
+after: {max}
+{close}
+```
+
+
+```hypergraph
+# if语句判断值
+{open "C:/Users/haoyuting/Desktop/test/curvefit.dat"}
+{max = max(int(p1w1c1.y))}
+Max: {max}
+{if(max >40)}
+high value: {max}
+{elseif(max >30)}
+low value: {max}
+{else}
+min value: {max}
+{endif}
+{close}
+```
+
